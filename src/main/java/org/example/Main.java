@@ -1,16 +1,25 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         Context context  =  new Context();
         Scanner scanner = new Scanner(System.in);
+        Map<String, Strategy> strategyMap = new HashMap<>();
+        Strategy strategy;
 
         while (true){
             System.out.println("Quelle Stratégie .?");
-            String strategyClassName = scanner.nextLine();
-            Strategy strategy =(Strategy) Class.forName(strategyClassName).newInstance();
+            String str = scanner.nextLine();
+            strategy=strategyMap.get(str);
+            if(strategy==null){
+                System.out.println("Creation d un nouvell Object de StateguImpl"+str);
+                strategy =(Strategy) Class.forName("org.example.StrateguImpl"+str).getConstructor().newInstance();
+                strategyMap.put(str,strategy);
+            }
             context.setStrategy(strategy);
             context.effectuerOperation();
         }
