@@ -2,7 +2,7 @@ package org.example;
 
 public class Context {
 
-    private Strategy strategy;
+    private Strategy strategy = new DefaultStrategy();
 
     public void effectuerOperation(){
         System.out.println("************************************");
